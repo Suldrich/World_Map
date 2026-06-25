@@ -254,6 +254,29 @@ border-top-left-radius: 20px;
 .side-panel.open {
         transform: translateY(0);
     }
+                .search-box {
+    position: fixed;
+    top: 1em;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+}
+
+.country-search {
+    padding: 0.6em 1em;
+    border-radius: 999px;
+    border: none;
+    outline: none;
+    width: 250px;
+    font-size: 1em;
+    background: #1d1a20;
+    color: #fff;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+}
+
+.country-search::placeholder {
+    color: #aaa;
+}
        
 }
 
@@ -261,6 +284,10 @@ border-top-left-radius: 20px;
         </style>
     </head>
     <body>
+
+        <div class="search-box">
+    <input type="text" placeholder="Search country..." class="country-search">
+</div>
           
 <div class="world-map">
     <div class="map-container">
@@ -2096,6 +2123,33 @@ WS:"Oka",YE:"Saltah",YT:"French Creole"
           map.style.height = zoomValue + "vh";
           zoomValueOutput.innerText = zoomValue + "%";   
         });
+            const searchInput = document.querySelector(".country-search");
+
+searchInput.addEventListener("input", function () {
+    const value = this.value.toLowerCase().trim();
+
+    countries.forEach(country => {
+        const name = (country.getAttribute("name") || "").toLowerCase();
+        const id = (country.id || "").toLowerCase();
+        const className = (country.getAttribute("class") || "").toLowerCase();
+
+        if (
+            value &&
+            (name.includes(value) || id.includes(value) || className.includes(value))
+        ) {
+            // Highlight match
+            country.style.fill = "#c99aff";
+
+            // OPTIONAL: auto-click (only if exact match or close match)
+            if (name === value || id === value) {
+                country.dispatchEvent(new Event("click"));
+            }
+        } else {
+            country.style.fill = "#443d4b";
+        }
+    });
+});
+
     });
     </script>
 
