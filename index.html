@@ -205,126 +205,132 @@
                 margin-bottom: 10px;
             }
            
-.search-box {
-    position: fixed;
-    top: 1em;
-    left: 1em;
-    z-index: 1000;
+            .search-box {
+                position: fixed;
+                top: 1em;
+                left: 1em;
+                z-index: 1000;
+            
+                background: rgba(20, 18, 24, 0.9);
+                padding: 0.5em;
+                border-radius: 12px;
+                backdrop-filter: blur(10px);
+            }
+            
+            .country-search {
+                padding: 0.6em 1em;
+                border-radius: 999px;
+                border: none;
+                outline: none;
+                width: 250px;
+            
+                background: #1d1a20;
+                color: white;
+                font-size: 1em;
+            }
+            
+            .country-search::placeholder {
+                color: #aaa;
+            }
+            
+            .country-search:focus {
+                border-color: #c99aff;
+                box-shadow: 0 0 0 2px rgba(201,154,255,0.3);
+            }
+                      
+            
+@media (max-width: 768px) {
+            
+              
+                .side-panel {
+                    border-top-left-radius: 20px;
+                    border-top-right-radius: 20px;
+                    top: auto;
+                    bottom: 0;
+                    height: 70vh;
+                    transform: translateY(100%);
+                }
+                .world-map {
+                    height: auto;
+                    min-height: 100vh;
+                    overflow: auto;
+                }
+                .svg {
+                    width: 100%;
+                    height: auto;
+                }
+            
+                body {
+                    font-size: 14px;
+                    overflow-y: auto;
+                }
+            
+                .details-toggle {
+                    bottom: 0.75em;
+                    left: 0.75em;
+                    padding: 0.6em 1em;
+                    font-size: 0.9em;
+                }
+            
+                .zoom-controls {
+                    top: 0.5em;
+                    right: 0.5em;
+                    z-index: 1000;
+                }
+            
+                .zoom-controls button {
+                    width: 1.2em;
+                    height: 1.2em;
+                    font-size: 1.5em;
+                }
+            
+                .country-flag {
+                    width: 80%;
+                }
 
-    background: rgba(20, 18, 24, 0.9);
-    padding: 0.5em;
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-}
-
-.country-search {
-    padding: 0.6em 1em;
-    border-radius: 999px;
-    border: none;
-    outline: none;
-    width: 250px;
-
-    background: #1d1a20;
-    color: white;
-    font-size: 1em;
-}
-
-.country-search::placeholder {
-    color: #aaa;
-}
-
-.country-search:focus {
-    border-color: #c99aff;
-    box-shadow: 0 0 0 2px rgba(201,154,255,0.3);
-}
-            @media (max-width: 768px) {
-
-  
-    .side-panel {
-      
-border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-        top: auto;
-        bottom: 0;
-        height: 70vh;
-        transform: translateY(100%);
-    }
-
-
-    /* Make text smaller */
-    body {
-        font-size: 14px;
-    }
-
-    /* Buttons scale down */
-    .details-toggle {
-        bottom: 0.75em;
-        left: 0.75em;
-        padding: 0.6em 1em;
-        font-size: 0.9em;
-    }
-
-    /* Zoom controls smaller */
-    .zoom-controls {
-        top: 0.5em;
-        right: 0.5em;
-    }
-
-    .zoom-controls button {
-        width: 1.2em;
-        height: 1.2em;
-        font-size: 1.5em;
-    }
-
-    /* Make flag responsive */
-    .country-flag {
-        width: 80%;
-    }
-
-    /* Make panel content tighter */
-    .side-panel .container {
-        padding-block: 1em;
-    }
-         
-.side-panel.open {
-        transform: translateY(0);
-    }
-                
- .search-box {
-    position: fixed;
-    top: 1em;
-    left: 1em;
-    transform: translateX(-50%);
-    z-index: 1000;
-    background: rgba(20, 18, 24, 0.9);
-    padding: 0.5em;
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-                    
-}
-
-.country-search {
-    padding: 0.6em 1em;
-    border-radius: 999px;
-    border: none;
-    outline: none;
-    width: 250px;
-
-    background: #1d1a20;
-    color: white;
-    font-size: 1em;
-}
-
-.country-search::placeholder {
-    color: #aaa;
-}
-
-.country-search:focus {
-    border-color: #c99aff;
-    box-shadow: 0 0 0 2px rgba(201,154,255,0.3);
-}
-       
-}
+                .side-panel .container {
+                    padding-block: 1em;
+                }
+                     
+            .side-panel.open {
+                    transform: translateY(0);
+                }
+                            
+             .search-box {
+                position: fixed;
+                top: 1em;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 1000;
+                background: rgba(20, 18, 24, 0.9);
+                padding: 0.5em;
+                border-radius: 12px;
+                backdrop-filter: blur(10px);
+                                
+            }
+            
+            .country-search {
+                padding: 0.6em 1em;
+                border-radius: 999px;
+                border: none;
+                outline: none;
+                width: 250px;
+            
+                background: #1d1a20;
+                color: white;
+                font-size: 1em;
+            }
+            
+            .country-search::placeholder {
+                color: #aaa;
+            }
+            
+            .country-search:focus {
+                border-color: #c99aff;
+                box-shadow: 0 0 0 2px rgba(201,154,255,0.3);
+            }
+                   
+            }
 
 
         </style>
