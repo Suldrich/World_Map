@@ -2202,6 +2202,22 @@ searchInput.addEventListener("input", function () {
         } else {
             country.style.fill = "#443d4b";
         }
+        searchInput.addEventListener("keypress", function (e) {
+    if (e.key === "Enter") {
+        const value = this.value.toLowerCase().trim();
+
+        // Find best matching country
+        const match = [...countries].find(country => {
+            const name = (country.getAttribute("name") || "").toLowerCase();
+            return name.includes(value);
+        });
+
+        if (match) {
+            // ✅ Trigger your existing click logic
+            match.dispatchEvent(new Event("click"));
+        }
+    }
+});
     });
 });
 
