@@ -2178,6 +2178,16 @@ WS:"Oka",YE:"Saltah",YT:"French Creole"
           map.style.height = zoomValue + "vh";
           zoomValueOutput.innerText = zoomValue + "%";   
         });
+            const countryIndex = countries.map(country => {
+    const name = (country.getAttribute("name") || "").toLowerCase();
+    const id = (country.id || "").toLowerCase();
+
+    return {
+        element: country,
+        name,
+        id
+    };
+});
             const searchInput = document.querySelector(".country-search");
 
 searchInput.addEventListener("input", function () {
@@ -2202,21 +2212,36 @@ searchInput.addEventListener("input", function () {
         } else {
             country.style.fill = "#443d4b";
         }
-        searchInput.addEventListener("keypress", function (e) {
+        const countryAliases = {
+    "usa": "united states of america",
+    "us": "united states of america",
+    "uk": "united kingdom",
+    "england": "united kingdom",
+    "uae": "united arab emirates",
+    "drc": "democratic republic of the congo",
+    "congo": "democratic republic of the congo",
+    "south korea": "korea",
+    "Russian Federation": "russia"
+};
+      searchInput.addEventListener("keypress", function (e) {
     if (e.key === "Enter") {
-        const value = this.value.toLowerCase().trim();
+        let value = this.value.toLowerCase().trim();
 
-        // Find best matching country
-        const match = [...countries].find(country => {
-            const name = (country.getAttribute("name") || "").toLowerCase();
-            return name.includes(value);
-        });
+        if (countryAliases[value]) {
+            value = countryAliases[value];
+        }
+
+        // ✅ Find match (fast)
+        const match = countryIndex.find(country =>
+            country.name.includes(value) || country.id === value
+        );
 
         if (match) {
-            // ✅ Trigger your existing click logic
-            match.dispatchEvent(new Event("click"));
+            match.element.dispatchEvent(new Event("click"));
+            this.value = "";
         }
     }
+});
 });
     });
 });
