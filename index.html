@@ -38,11 +38,15 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                overflow: auto;
             }
-            svg{
-                width: 100vw;
-                height: 100vh;
+       
+            svg {
+                width: 100%;
+                height: auto;
+                max-height: 100vh;
             }
+
             path{
                 fill: #443d4b;
                 stroke: #dcbfff;
@@ -198,6 +202,61 @@
             .zoom-out{
                 margin-bottom: 10px;
             }
+            @media (max-width: 768px) {
+
+    /* Make side panel smaller */
+    .side-panel {
+      
+border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        top: auto;
+        bottom: 0;
+        height: 70vh;
+        transform: translateY(100%);
+    }
+
+
+    /* Make text smaller */
+    body {
+        font-size: 14px;
+    }
+
+    /* Buttons scale down */
+    .details-toggle {
+        bottom: 0.75em;
+        left: 0.75em;
+        padding: 0.6em 1em;
+        font-size: 0.9em;
+    }
+
+    /* Zoom controls smaller */
+    .zoom-controls {
+        top: 0.5em;
+        right: 0.5em;
+    }
+
+    .zoom-controls button {
+        width: 1.2em;
+        height: 1.2em;
+        font-size: 1.5em;
+    }
+
+    /* Make flag responsive */
+    .country-flag {
+        width: 80%;
+    }
+
+    /* Make panel content tighter */
+    .side-panel .container {
+        padding-block: 1em;
+    }
+         
+.side-panel.open {
+        transform: translateY(0);
+    }
+       
+}
+
 
         </style>
     </head>
