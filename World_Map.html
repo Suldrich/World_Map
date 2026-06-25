@@ -825,7 +825,18 @@ WS:"Oka",YE:"Saltah",YT:"French Creole"
                 });
             };
 
-     
+            // Try local JSON first (useful if you add a downloaded copy)
+            try {
+                const resp = await fetch('./local_countries.json');
+                if (resp.ok) {
+                    const all = await resp.json();
+                    buildMap(all);
+                    console.log('Loaded local_countries.json with', Object.keys(localCountryData).length, 'entries');
+                    return;
+                }
+            } catch (e) {
+                console.info('No local_countries.json present or failed to load', e);
+            }
 
             // Fallback: try remote RestCountries all endpoint to populate the map
             try {
