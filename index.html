@@ -2202,16 +2202,9 @@ const countryAliases = {
     "russia": "russian federation"
 };
 
-
-// ==========================
-// SEARCH INPUT
-// ==========================
 const searchInput = document.querySelector(".country-search");
 
 
-// ==========================
-// LIVE HIGHLIGHT (input)
-// ==========================
 let timeout;
 
 searchInput.addEventListener("input", function () {
@@ -2220,17 +2213,17 @@ searchInput.addEventListener("input", function () {
     timeout = setTimeout(() => {
         let value = this.value.toLowerCase().trim();
 
-        // ✅ apply alias
+        
         if (countryAliases[value]) {
             value = countryAliases[value];
         }
 
-        // ✅ reset all colors
+   
         countries.forEach(c => c.style.fill = "#443d4b");
 
         if (!value) return;
 
-        // ✅ highlight matches
+      
         countryIndex.forEach(country => {
             if (country.name.includes(value)) {
                 country.element.style.fill = "#c99aff";
@@ -2241,9 +2234,7 @@ searchInput.addEventListener("input", function () {
 });
 
 
-// ==========================
-// ENTER KEY (open panel)
-// ==========================
+
 searchInput.addEventListener("keypress", function (e) {
     if (e.key === "Enter") {
         let value = this.value.toLowerCase().trim();
@@ -2260,7 +2251,7 @@ searchInput.addEventListener("keypress", function (e) {
             match.element.dispatchEvent(new Event("click"));
             this.value = "";
         }
-    
+    }
 });
  });
  
