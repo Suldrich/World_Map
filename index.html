@@ -2178,41 +2178,20 @@ WS:"Oka",YE:"Saltah",YT:"French Creole"
           map.style.height = zoomValue + "vh";
           zoomValueOutput.innerText = zoomValue + "%";   
         });
-            const countryIndex = countries.map(country => {
-    const name = (country.getAttribute("name") || "").toLowerCase();
-    const id = (country.id || "").toLowerCase();
+            // ==========================
+// COUNTRY INDEX (runs once)
+// ==========================
+const countryIndex = [...countries].map(country => ({
+    element: country,
+    name: (country.getAttribute("name") || "").toLowerCase(),
+    id: (country.id || "").toLowerCase()
+}));
 
-    return {
-        element: country,
-        name,
-        id
-    };
-});
-            const searchInput = document.querySelector(".country-search");
 
-searchInput.addEventListener("input", function () {
-    const value = this.value.toLowerCase().trim();
-
-    countries.forEach(country => {
-        const name = (country.getAttribute("name") || "").toLowerCase();
-        const id = (country.id || "").toLowerCase();
-        const className = (country.getAttribute("class") || "").toLowerCase();
-
-        if (
-            value &&
-            (name.includes(value) || id.includes(value) || className.includes(value))
-        ) {
-            // Highlight match
-            country.style.fill = "#c99aff";
-
-            // OPTIONAL: auto-click (only if exact match or close match)
-            if (name === value || id === value) {
-                country.dispatchEvent(new Event("click"));
-            }
-        } else {
-            country.style.fill = "#443d4b";
-        }
-        const countryAliases = {
+// ==========================
+// ALIASES (define ONCE)
+// ==========================
+const countryAliases = {
     "usa": "united states of america",
     "us": "united states of america",
     "uk": "united kingdom",
@@ -2220,10 +2199,52 @@ searchInput.addEventListener("input", function () {
     "uae": "united arab emirates",
     "drc": "democratic republic of the congo",
     "congo": "democratic republic of the congo",
-    "south korea": "korea",
-    "Russian Federation": "russia"
+    "russia": "russian federation"
 };
-      searchInput.addEventListener("keypress", function (e) {
+
+
+// ==========================
+// SEARCH INPUT
+// ==========================
+const searchInput = document.querySelector(".country-search");
+
+
+// ==========================
+// LIVE HIGHLIGHT (input)
+// ==========================
+let timeout;
+
+searchInput.addEventListener("input", function () {
+    clearTimeout(timeout);
+
+    timeout = setTimeout(() => {
+        let value = this.value.toLowerCase().trim();
+
+        // ✅ apply alias
+        if (countryAliases[value]) {
+            value = countryAliases[value];
+        }
+
+        // ✅ reset all colors
+        countries.forEach(c => c.style.fill = "#443d4b");
+
+        if (!value) return;
+
+        // ✅ highlight matches
+        countryIndex.forEach(country => {
+            if (country.name.includes(value)) {
+                country.element.style.fill = "#c99aff";
+            }
+        });
+
+    }, 100);
+});
+
+
+// ==========================
+// ENTER KEY (open panel)
+// ==========================
+searchInput.addEventListener("keypress", function (e) {
     if (e.key === "Enter") {
         let value = this.value.toLowerCase().trim();
 
@@ -2231,7 +2252,6 @@ searchInput.addEventListener("input", function () {
             value = countryAliases[value];
         }
 
-        // ✅ Find match (fast)
         const match = countryIndex.find(country =>
             country.name.includes(value) || country.id === value
         );
@@ -2242,6 +2262,8 @@ searchInput.addEventListener("input", function () {
         }
     }
 });
+
+             
 });
     });
 });
